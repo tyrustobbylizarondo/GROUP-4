@@ -1,12 +1,14 @@
-package com.example;
+package com.example.layug;
 
+import android.accounts.Account;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Scanner;
 
 public class AccountManager {
-    // Shared database simulation in memory
-    private static Map<String, User> database = new HashMap<>();
+
+    private static Map<String, Account> database = new HashMap<>();
+
 
     public static void main(String[] args) {
         Scanner scanner = new Scanner(System.in);
@@ -20,7 +22,7 @@ public class AccountManager {
             System.out.print("Choose an option: ");
 
             int choice = scanner.nextInt();
-            scanner.nextLine(); // Consume newline leftover
+            scanner.nextLine();
 
             switch (choice) {
                 case 1:
@@ -43,23 +45,18 @@ public class AccountManager {
     private static void registerUser(Scanner scanner) {
         System.out.print("Enter a new username: ");
         String username = scanner.nextLine().trim();
-
-        // Check if username already exists
         if (database.containsKey(username)) {
             System.out.println("Error: That username is already taken!");
             return;
         }
-
         System.out.print("Enter a password: ");
         String password = scanner.nextLine();
-
-        // Instantiate and save the new User object
-        User newUser = new User(username, password);
+        Account newUser = new Account(username, password);
         database.put(username, newUser);
 
+        String Date = scanner.nextLine();;
         System.out.println("Success! Account created for: " + username);
     }
-
     private static void displayAccounts() {
         if (database.isEmpty()) {
             System.out.println("No accounts registered yet.");
